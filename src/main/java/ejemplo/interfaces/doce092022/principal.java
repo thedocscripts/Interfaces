@@ -5,14 +5,23 @@
 package ejemplo.interfaces.doce092022;
 
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -21,6 +30,9 @@ import javax.swing.table.DefaultTableModel;
 public class principal extends javax.swing.JFrame {
     Object[] a;
     JTable table;
+ 
+    ArrayList<String> brands = new ArrayList<>();
+    ArrayList<Object> pack = new ArrayList<>();
     
     /**
      * Creates new form principal
@@ -31,6 +43,28 @@ public class principal extends javax.swing.JFrame {
         this.setTitle("Enrique Cabello Delgado");
         datefield.setText(LocalDate.now().toString());
         
+        
+          //JSON parser object to parse read file
+        JSONParser jsonParser = new JSONParser();
+         
+        try (FileReader reader = new FileReader("src/main/resources/files/vehicles.json"))
+        {
+            //Read JSON file
+            Object obj = jsonParser.parse(reader);
+ 
+            JSONArray employeeList = (JSONArray) obj;
+           
+             
+            //Iterate over employee array
+            employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } 
     }
 
     /**
@@ -46,8 +80,6 @@ public class principal extends javax.swing.JFrame {
         model = new javax.swing.JLabel();
         Marca = new javax.swing.JLabel();
         namefield = new javax.swing.JTextField();
-        modelfield = new javax.swing.JTextField();
-        marcafield = new javax.swing.JTextField();
         price = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         gas = new javax.swing.JLabel();
@@ -63,34 +95,49 @@ public class principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         caracters = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        modelcomb = new javax.swing.JComboBox<>();
+        marfil = new javax.swing.JTextField();
+        contract = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setForeground(java.awt.Color.white);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         name.setText("Nombre:");
+        getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 69, -1, -1));
 
         model.setText("Modelo:");
+        getContentPane().add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 110, 47, -1));
 
         Marca.setText("Marca:");
+        getContentPane().add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 153, 39, -1));
 
         namefield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 namefieldActionPerformed(evt);
             }
         });
+        getContentPane().add(namefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 66, 58, -1));
 
         price.setText("Precio:");
+        getContentPane().add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 69, 85, -1));
 
         jLabel2.setText("Color:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 110, 85, -1));
 
         gas.setText("Tipo de gasolina:");
+        getContentPane().add(gas, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 151, -1, 20));
+        getContentPane().add(pricefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 66, 57, -1));
 
         colorfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorfieldActionPerformed(evt);
             }
         });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\enriq\\Downloads\\logo_20_1_20.png")); // NOI18N
+        getContentPane().add(colorfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 107, 58, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 81, 152, -1));
 
         addbt.setText("Añadir");
         addbt.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +145,7 @@ public class principal extends javax.swing.JFrame {
                 addbtActionPerformed(evt);
             }
         });
+        getContentPane().add(addbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 106, 332, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,7 +171,10 @@ public class principal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 186, 653, 137));
+
         gastype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diesel", "Gasolina", "Hibrido", "Electrico", " " }));
+        getContentPane().add(gastype, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 150, 57, -1));
 
         jButton1.setText("Leer");
         jButton1.setEnabled(false);
@@ -132,13 +183,15 @@ public class principal extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 149, 332, -1));
+        getContentPane().add(datefield, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 148, 35));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre:", "Modelo:", "Marca:", "Precio:", "Color:", "Tipo de gasiolina:"
+                "Nombre:", "Modelo:", "Marca:", "Precio:", "Color:", "Tipo de gasolina:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -157,105 +210,39 @@ public class principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 336, 653, 171));
+
         caracters.setText("Caracteristicas");
+        caracters.setEnabled(false);
         caracters.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 caractersMouseClicked(evt);
             }
         });
+        getContentPane().add(caracters, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 514, 115, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(model, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(namefield, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(modelfield, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(26, 26, 26)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(marcafield, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(gas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(datefield, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(pricefield, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(colorfield, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(gastype, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addbt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 24, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(caracters, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(datefield, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(name)
-                            .addComponent(namefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(price)
-                            .addComponent(pricefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(colorfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modelfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(model)
-                    .addComponent(addbt))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Marca)
-                    .addComponent(marcafield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gastype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(caracters))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_20_1_20.png")));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 170, 66));
+
+        modelcomb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        modelcomb.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                modelcombItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(modelcomb, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        marfil.setEditable(false);
+        getContentPane().add(marfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 80, -1));
+
+        contract.setText("contrato");
+        contract.setEnabled(false);
+        contract.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contractMouseClicked(evt);
+            }
+        });
+        getContentPane().add(contract, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 510, 150, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -287,8 +274,8 @@ public class principal extends javax.swing.JFrame {
         
         
         Name = namefield.getText();
-        Model = modelfield.getText();
-        Marca = marcafield.getText();
+        Model = modelcomb.getSelectedItem().toString();
+        Marca = marfil.getText().toString();
         Price = pricefield.getText().toString();
         Color = colorfield.getText();
         Gas = gastype.getSelectedItem().toString();
@@ -305,7 +292,12 @@ public class principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La casilla de Modelo está vacia",
                 "Valor no introducido", JOptionPane.INFORMATION_MESSAGE);
         }else{
-            comprobado2 = true;
+            if(modelcomb.getSelectedIndex() != 0){
+                comprobado2 = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Seleccione un modelo",
+                "Valor no introducido", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         
         if(Marca == null){
@@ -313,6 +305,9 @@ public class principal extends javax.swing.JFrame {
                 "Valor no introducido", JOptionPane.INFORMATION_MESSAGE);
         }else{
             comprobado3 = true;
+         
+            
+            
         }
         
         if(Price == null){
@@ -394,6 +389,8 @@ public class principal extends javax.swing.JFrame {
 
         }
         jButton1.setEnabled(true);
+        caracters.setEnabled(true);
+        contract.setEnabled(true);
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -435,7 +432,41 @@ public class principal extends javax.swing.JFrame {
 
     private void caractersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caractersMouseClicked
         // TODO add your handling code here:
+        Object item = modelcomb.getSelectedItem();
+            
+                String image1 = ((cmitem)item).getImage1();
+                String image2 = ((cmitem)item).getImage2();
+                String model = ((cmitem)item).getBrand();
+                String year = ((cmitem)item).getYear();
+                String name = ((cmitem)item).getName();
+                String speed = ((cmitem)item).getSpeed();
+                String description = ((cmitem)item).getDescription();
+                String doors = ((cmitem)item).getDoors();
+                String gas = gastype.getSelectedItem().toString();
+        Frame4 ss = new Frame4(model,name, year, doors, speed, image1, image2, gas, description);
+        ss.setVisible(true);
     }//GEN-LAST:event_caractersMouseClicked
+
+    private void modelcombItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_modelcombItemStateChanged
+        // TODO add your handling code here:
+        Object item = modelcomb.getSelectedItem();
+            
+                String value = ((cmitem)item).getBrand();
+                marfil.setText(value);
+    }//GEN-LAST:event_modelcombItemStateChanged
+
+    private void contractMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contractMouseClicked
+        // TODO add your handling code here:
+        contract cc;
+        try {
+            cc = new contract(namefield.getText().toString(), modelcomb.getSelectedItem().toString(), gastype.getSelectedItem().toString());
+            cc.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_contractMouseClicked
 
     /**
      * @param args the command line arguments
@@ -475,25 +506,65 @@ public class principal extends javax.swing.JFrame {
         
         
     }
+    
+ private void parseEmployeeObject(JSONObject veh) 
+    {
+        //Get employee object within list
+        JSONObject employeeObject = (JSONObject) veh.get("vehicle");
+         
+        //Get employee first name
+        String name = (String) employeeObject.get("name");    
+  
+         
+        //Get employee last name
+        String brand = (String) employeeObject.get("brand");  
+     
+         
+        //Get employee website name
+        String doors = (String) employeeObject.get("doors");    
+      
+        
+        String speed = (String) employeeObject.get("speed");    
+     
+        
+        String year = (String) employeeObject.get("year");    
 
+        
+      
+        
+        String description = (String) employeeObject.get("description");    
+    
+            
+            
+        String image1 = (String) employeeObject.get("image1");  
+        String image2 = (String) employeeObject.get("image2");  
+            
+            
+        
+        cmitem vhh = new cmitem(name, brand, doors, speed, year, description, image1, image2);
+        modelcomb.addItem(vhh);
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Marca;
     private javax.swing.JButton addbt;
     private javax.swing.JButton caracters;
     private javax.swing.JTextField colorfield;
+    private javax.swing.JButton contract;
     private javax.swing.JLabel datefield;
     private javax.swing.JLabel gas;
     private javax.swing.JComboBox<String> gastype;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField marcafield;
+    private javax.swing.JTextField marfil;
     private javax.swing.JLabel model;
-    private javax.swing.JTextField modelfield;
+    private javax.swing.JComboBox<Object> modelcomb;
     private javax.swing.JLabel name;
     private javax.swing.JTextField namefield;
     private javax.swing.JLabel price;

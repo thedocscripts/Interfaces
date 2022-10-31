@@ -1,0 +1,39 @@
+[
+    {
+        "vehicle": {
+            "name": "Leon",
+            "brand": "seat",
+            "doors": "4",
+            "speed": "100km/h",
+            "year": "2015",
+            "description": "Un cochazo la verdad",
+            "image1": "/images/seat1.jpg",
+            "image2": "/images/seat2.jpg"
+        }
+
+    },
+    {
+        "vehicle": {
+            "name": "Alhambra",
+            "brand": "seat",
+            "doors": "4",
+            "speed": "120km/h",
+            "year": "2015",
+            "description": "Familiar para todos",
+            "image1": "/images/alhambra1.jpg",
+            "image2": "/images/alhambra2.png"
+        }
+    },
+    {
+        "vehicle": {
+            "name": "TT",
+            "brand": "audi",
+            "doors": "2",
+            "speed": "120km/h",
+            "year": "2015",
+            "description": "deportivo de alta gama",
+            "image1": "/images/audi1.png",
+            "image2": "/images/audi2.jpg"
+        }
+    }
+]

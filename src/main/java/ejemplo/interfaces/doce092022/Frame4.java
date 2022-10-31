@@ -4,29 +4,62 @@
  */
 package ejemplo.interfaces.doce092022;
     
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author thedoc
  */
 public class Frame4 extends javax.swing.JFrame {
     String marca;
-    String color;
+    String name;
+    String year;
+    String doors;
+    String speed;
+    String image1;
+    String image2;
+    String gas;
+    String description;
     /**
      * Creates new form Frame2
      */
     public Frame4() {
         initComponents();
         this.setTitle(marca);
+        
     }
     
     
-    public  Frame4(String _marca, String _color){
+    public  Frame4(String _marca, String _name, String _year, String _doors, String _speed, String _image1, String _image2, String _gas, String _description){
         initComponents();
-        this.setTitle("Editando Modelo: " + _marca);
-        marca = _marca;
-        color = _color;
-        colorinp.setText(color);
-        modelinp.setText(marca);
+        this.setTitle("Caracteristicas de Modelo: " + _marca + " " + _name);
+        this.marca = _marca;
+        this.name = _name;
+        this.year = _year;
+        this.doors = _doors;
+        this.speed = _speed;
+        this.image1 = _image1;
+        this.image2 = _image2;
+        this.gas = _gas;
+        this.description = _description;
+        mminpt1.setText(name);
+        ttinpt.setText(gas);
+        vvinpt1.setText(_speed);
+        yyinpt1.setText(_year);
+        ddinpt1.setText(_doors);
+        dsinpt.setText(_description);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource(_image1))); // NOI18N
+        jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource(_image2))); // NOI18N
+           
         
     }
 
@@ -39,75 +72,69 @@ public class Frame4 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        modelo2 = new javax.swing.JLabel();
-        color2 = new javax.swing.JLabel();
-        velo1 = new javax.swing.JLabel();
-        fap = new javax.swing.JLabel();
-        modelinp = new javax.swing.JTextField();
-        mttinp = new javax.swing.JTextField();
-        colorinp = new javax.swing.JTextField();
-        fapinp = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        dsinpt = new javax.swing.JTextField();
+        mminpt1 = new javax.swing.JTextField();
+        ttinpt = new javax.swing.JTextField();
+        vvinpt1 = new javax.swing.JTextField();
+        yyinpt1 = new javax.swing.JTextField();
+        ddinpt1 = new javax.swing.JTextField();
+        imm1 = new javax.swing.JLabel();
+        imm2 = new javax.swing.JLabel();
+        jLabel211 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        modelo2.setText("Modelo:");
+        jLabel1.setText("Modelo:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 40, -1, -1));
 
-        color2.setText("Color:");
+        jLabel2.setText("Velocidad:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
-        velo1.setText("Velocidad motor:");
+        jLabel3.setText("Tipo:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 44, -1));
 
-        fap.setText("Fabricación:");
+        jLabel4.setText("Año:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, -1, -1));
 
-        modelinp.setEditable(false);
+        jLabel6.setText("Puertas:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        colorinp.setEditable(false);
+        jLabel7.setText("Descripción:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(modelo2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(modelinp))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(velo1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(mttinp))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fap, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(fapinp, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(colorinp)))
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(modelo2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modelinp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(velo1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mttinp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorinp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fap, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fapinp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(115, Short.MAX_VALUE))
-        );
+        dsinpt.setEditable(false);
+        getContentPane().add(dsinpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 310, 70));
+
+        mminpt1.setEditable(false);
+        getContentPane().add(mminpt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 37, 130, -1));
+
+        ttinpt.setEditable(false);
+        getContentPane().add(ttinpt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 130, -1));
+
+        vvinpt1.setEditable(false);
+        getContentPane().add(vvinpt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 130, -1));
+
+        yyinpt1.setEditable(false);
+        getContentPane().add(yyinpt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 130, -1));
+
+        ddinpt1.setEditable(false);
+        getContentPane().add(ddinpt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 130, -1));
+        getContentPane().add(imm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, -1, -1));
+        getContentPane().add(imm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, 20));
+
+        jLabel211.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_20.png"))); // NOI18N
+        getContentPane().add(jLabel211, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 400, 140));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_20.png"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 400, 140));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,13 +177,21 @@ public class Frame4 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel color2;
-    private javax.swing.JTextField colorinp;
-    private javax.swing.JLabel fap;
-    private javax.swing.JTextField fapinp;
-    private javax.swing.JTextField modelinp;
-    private javax.swing.JLabel modelo2;
-    private javax.swing.JTextField mttinp;
-    private javax.swing.JLabel velo1;
+    private javax.swing.JTextField ddinpt1;
+    private javax.swing.JTextField dsinpt;
+    private javax.swing.JLabel imm1;
+    private javax.swing.JLabel imm2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel211;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField mminpt1;
+    private javax.swing.JTextField ttinpt;
+    private javax.swing.JTextField vvinpt1;
+    private javax.swing.JTextField yyinpt1;
     // End of variables declaration//GEN-END:variables
 }
