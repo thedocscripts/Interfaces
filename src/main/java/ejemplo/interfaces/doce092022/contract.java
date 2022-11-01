@@ -161,6 +161,8 @@ public class contract extends javax.swing.JFrame {
     }//GEN-LAST:event_dateinptActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        
+        //Practicamente toda esta función es el generado del pdf automatico al presionar el boton de crear factura
         PdfWriter pdfwriter = null;
         try {
             int invnum = numgen(25);
@@ -279,6 +281,8 @@ public class contract extends javax.swing.JFrame {
         });
     }
     
+    
+    //generador de numeros random
     public int numgen(int size){
         int num = (int) (Math.random()*size+1);
         return num;

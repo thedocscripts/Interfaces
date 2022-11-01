@@ -254,7 +254,7 @@ public class principal extends javax.swing.JFrame {
     private void addbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtActionPerformed
         
 // TODO add your handling code here:
-       
+       //validacion de todos los datos
         boolean comprobado = false;
         boolean comprobado2 = false;
         boolean comprobado3 = false;
@@ -404,6 +404,7 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        //funcion para borrar los datos de la segunda tabla de leer
         table = (JTable)evt.getSource();
         int row = table.getSelectedRow();
         System.out.println(row);
@@ -432,6 +433,10 @@ public class principal extends javax.swing.JFrame {
 
     private void caractersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caractersMouseClicked
         // TODO add your handling code here:
+        
+        //Aqui hice una funcion para usar los datos de json y usarlos en java esto recoge los datos y los mete un una clase.
+        //luego estos datos se los paso a caracteristica para que me enseñe todos los datos
+        
         Object item = modelcomb.getSelectedItem();
             
                 String image1 = ((cmitem)item).getImage1();
